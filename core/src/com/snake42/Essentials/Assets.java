@@ -1,4 +1,4 @@
-package com.snake42;
+package com.snake42.Essentials;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

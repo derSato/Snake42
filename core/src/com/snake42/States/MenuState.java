@@ -1,7 +1,7 @@
 package com.snake42.States;
 
-import com.snake42.GameStateManager;
-import com.snake42.State;
+import com.snake42.Essentials.GameStateManager;
+import com.snake42.Essentials.State;
 
 /**
  * Created by satoa on 11/30/2017.

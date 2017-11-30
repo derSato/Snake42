@@ -1,8 +1,8 @@
-package com.snake42;
+package com.snake42.Objects;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.snake42.Essentials.Assets;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class Snake {
 
     public void render(ShapeRenderer shapeRenderer){
         for (Vector2 v : position) {
-            shapeRenderer.rect(v.x,v.y,Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES);
+            shapeRenderer.rect(v.x,v.y, Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES);
         }
     }
 

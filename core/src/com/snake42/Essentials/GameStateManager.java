@@ -1,4 +1,4 @@
-package com.snake42;
+package com.snake42.Essentials;
 
 import java.util.Stack;
 
