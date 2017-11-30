@@ -3,6 +3,7 @@ package com.snake42.Essentials;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.snake42.States.GameState;
 import com.snake42.States.IntroState;
 
 public class Snake42 extends ApplicationAdapter {
@@ -15,7 +16,7 @@ public class Snake42 extends ApplicationAdapter {
     public void create() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         gsm = new com.snake42.Essentials.GameStateManager();
-        gsm.push(new IntroState(gsm));
+        gsm.push(new GameState(gsm));
     }
 
     @Override
