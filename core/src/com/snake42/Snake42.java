@@ -14,7 +14,7 @@ public class Snake42 extends ApplicationAdapter {
 
     @Override
     public void create() {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0,0, 0, 1);
         gsm = new GameStateManager();
         gsm.push(new IntroState(gsm));
     }
