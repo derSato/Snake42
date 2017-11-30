@@ -9,6 +9,8 @@ import com.snake42.State;
 
 public class GameState extends State{
 
+    Snake snake;
+
     public GameState(GameStateManager gsm) {
         super(gsm);
     }

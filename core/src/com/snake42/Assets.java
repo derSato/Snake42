@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
 
+    public static final int NUMBER_OF_TILES = 40;
+    public static final int MAX_WIDTH_HEIGHT = 900;
+
     public static BitmapFont tight, bold;
 
     public static void init() {
