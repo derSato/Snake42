@@ -31,7 +31,6 @@ public class GameState extends State{
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-
         snake.render(shapeRenderer);
         shapeRenderer.end();
     }

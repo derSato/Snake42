@@ -35,7 +35,10 @@ public class Snake {
 
     public void render(ShapeRenderer shapeRenderer){
         for (Vector2 v : position) {
-            shapeRenderer.rect(v.x,v.y, Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES);
+            shapeRenderer.rect(v.x * Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,
+                                v.y* Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,
+                                Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES,
+                                Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES);
         }
     }
 
