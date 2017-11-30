@@ -14,7 +14,7 @@ public abstract class State {
 
     protected State(GameStateManager gsm) {
         this.gsm = gsm;
-        cam = new OrthographicCamera(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight());
+        cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public abstract void update(float dt);

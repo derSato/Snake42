@@ -11,9 +11,17 @@ public class Assets {
 
     public static BitmapFont tight, bold;
 
-    public static void init() {
-        tight = new BitmapFont(Gdx.files.internal("Short.fnt"));
+    public static void initBeforeIntro() {
         bold = new BitmapFont(Gdx.files.internal("Bold.fnt"));
+        tight = new BitmapFont(Gdx.files.internal("Short.fnt"));
+    }
+    public static void init() {
+
+    }
+
+    public static void dispose() {
+        bold.dispose();
+        tight.dispose();
     }
 
 }
