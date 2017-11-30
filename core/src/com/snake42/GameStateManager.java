@@ -8,23 +8,29 @@ import java.util.Stack;
 
 public class GameStateManager {
     private Stack<State> states;
-    public GameStateManager(){
+
+    public GameStateManager() {
         states = new Stack<State>();
     }
-    public void push(State s){
+
+    public void push(State s) {
         states.push(s);
     }
-    public void pop(){
+
+    public void pop() {
         states.pop();
     }
-    public void set(State s){
+
+    public void set(State s) {
         states.pop();
         states.push(s);
     }
-    public void update(float dt){
+
+    public void update(float dt) {
         states.peek().update(dt);
     }
-    public void render(){
+
+    public void render() {
         states.peek().render();
     }
 }
