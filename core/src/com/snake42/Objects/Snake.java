@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Snake {
 
     private final int NUMBER_OF_STARTPIECES = 3; //How many parts has the snake at start
+    private final float TIME_FOR_ONE_TICK = 1;
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
@@ -27,9 +28,18 @@ public class Snake {
         for (int i = 0; i < NUMBER_OF_STARTPIECES; i++){
             position.add(new Vector2(2+i,2));
         }
+        timePassed = 0;
     }
 
+    float timePassed;   //Wenn diese Variable den Wert in TIME_FOR_ONE_TICK erreicht hat gibt es einen Tick
     public void update(float delta){
+        timePassed+=delta;
+        if(timePassed > TIME_FOR_ONE_TICK){
+            for (Vector2 v : position) {
+                v.x += (Assets.MAX_WIDTH_HEIGHT/Assets.NUMBER_OF_TILES);
+            }
+            timePassed = 0;
+        }
 
     }
 

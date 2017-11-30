@@ -23,7 +23,7 @@ public class GameState extends State{
 
     @Override
     public void update(float dt) {
-
+        snake.update(dt);
     }
 
     @Override
