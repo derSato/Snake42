@@ -1,5 +1,7 @@
 package com.snake42.States;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.snake42.Assets;
 import com.snake42.GameStateManager;
 import com.snake42.State;
 
@@ -8,8 +10,14 @@ import com.snake42.State;
  */
 
 public class IntroState extends State {
+
+    SpriteBatch spriteBatch;
+    String title = "SaLeoProductions", undertilte = "Present";
+
     public IntroState(GameStateManager gsm) {
         super(gsm);
+        spriteBatch = new SpriteBatch();
+        Assets.initBeforeIntro();
     }
 
     @Override
@@ -19,7 +27,9 @@ public class IntroState extends State {
 
     @Override
     public void render() {
-
+        spriteBatch.begin();
+        Assets.bold.draw()
+        spriteBatch.end();
     }
 
     @Override
@@ -29,6 +39,6 @@ public class IntroState extends State {
 
     @Override
     public void dispose() {
-
+        spriteBatch.dispose();
     }
 }
