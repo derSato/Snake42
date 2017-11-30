@@ -12,7 +12,7 @@ import com.snake42.State;
 public class IntroState extends State {
 
     SpriteBatch spriteBatch;
-    String title = "SaLeoProductions", undertilte = "Present";
+    String title = "SaLeoProductions", undertilte = "Present NICHT";
 
     public IntroState(GameStateManager gsm) {
         super(gsm);
