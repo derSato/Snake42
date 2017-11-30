@@ -28,7 +28,6 @@ public class IntroState extends State {
     @Override
     public void render() {
         spriteBatch.begin();
-        Assets.bold.draw()
         spriteBatch.end();
     }
 
