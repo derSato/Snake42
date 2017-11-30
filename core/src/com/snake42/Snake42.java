@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.snake42.States.IntroState;
 
 public class Snake42 extends ApplicationAdapter {
 
@@ -15,6 +16,7 @@ public class Snake42 extends ApplicationAdapter {
     public void create() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         gsm = new GameStateManager();
+        gsm.push(new IntroState(gsm));
     }
 
     @Override
