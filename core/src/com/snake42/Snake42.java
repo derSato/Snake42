@@ -11,7 +11,7 @@ public class Snake42 extends ApplicationAdapter {
     public static final java.lang.String TITLE = "Snake42";
     private GameStateManager gsm;
 
-    //13cm
+    //13cm Junge
 
     @Override
     public void create() {
