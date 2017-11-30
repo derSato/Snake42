@@ -11,6 +11,8 @@ public class Snake42 extends ApplicationAdapter {
     public static final java.lang.String TITLE = "Snake42";
     private GameStateManager gsm;
 
+    //13cm
+
     @Override
     public void create() {
         Gdx.gl.glClearColor(1, 0, 0, 1);
