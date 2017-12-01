@@ -1,6 +1,7 @@
 package com.snake42.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.snake42.Essentials.Assets;
@@ -33,14 +34,36 @@ public class GameState extends State{
 
     @Override
     public void render() {
+        //FIRST check if someone pressed a key or clicked something
+        checkForInput();
+
+        //SECOND update all GameOBJECTS
+        snake.update(Gdx.graphics.getDeltaTime());
+
+        //THIRD draw everything on the screen
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(0,0,1,1);
         shapeRenderer.rect(Assets.AMT_OF_TILES_X-1,0,1,1);
         shapeRenderer.rect(0,Assets.AMT_OF_TILES_Y-1,1,1);
-
         snake.render(shapeRenderer);
-        snake.update(Gdx.graphics.getDeltaTime());
         shapeRenderer.end();
+
+
+    }
+
+    public void checkForInput(){ //All Input that happens in GameState is registered here
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+            snake.input(Snake.Richtung.LEFT);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+            snake.input(Snake.Richtung.RIGHT);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+            snake.input(Snake.Richtung.UP);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+            snake.input(Snake.Richtung.DOWN);
+        }
     }
 
     @Override

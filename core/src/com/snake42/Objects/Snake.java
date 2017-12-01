@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Snake {
 
     private final int NUMBER_OF_STARTPIECES = 3; //How many parts has the snake at start
-    private final float DURATION_ONE_TICK = 0.5f;
+    private final float DURATION_ONE_TICK = 0.1f;
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
@@ -53,7 +53,10 @@ public class Snake {
             tick = 0;
             //-------------
         }
-        System.out.println(tick);
+    }
+
+    public void input(Richtung key){
+        richtung = key;
     }
 
     public void render(ShapeRenderer shapeRenderer){
@@ -63,5 +66,5 @@ public class Snake {
         }
     }
 
-    enum Richtung {RIGHT,LEFT,UP,DOWN};
+    public enum Richtung {RIGHT,LEFT,UP,DOWN};
 }
