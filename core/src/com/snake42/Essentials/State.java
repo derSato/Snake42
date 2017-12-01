@@ -20,8 +20,6 @@ public abstract class State {
 
     public abstract void render();
 
-    public abstract void handleInput();
-
     public abstract void dispose();
 
 

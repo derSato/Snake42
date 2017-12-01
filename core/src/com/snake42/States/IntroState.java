@@ -44,7 +44,7 @@ public class IntroState extends State {
     public void update(float dt) {
         if(textAlpha>1)
             isFadingIN = false;
-        if(textAlpha<0 && hasLoaded)
+        if(hasLoaded&&(textAlpha<0 || Gdx.input.justTouched()))
             gsm.set(new MenuState(gsm));
         if(!isFadingIN)
             dt*=-1;
@@ -61,10 +61,6 @@ public class IntroState extends State {
         spriteBatch.end();
     }
 
-    @Override
-    public void handleInput() {
-
-    }
 
     @Override
     public void dispose() {

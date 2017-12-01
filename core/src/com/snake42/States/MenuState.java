@@ -20,7 +20,8 @@ public class MenuState extends State{
 
     @Override
     public void update(float dt) {
-
+        if(Gdx.input.justTouched())
+            gsm.set(new GameState(gsm));
     }
 
     @Override
@@ -28,11 +29,6 @@ public class MenuState extends State{
         spriteBatch.begin();
 
         spriteBatch.end();
-    }
-
-    @Override
-    public void handleInput() {
-
     }
 
     @Override
