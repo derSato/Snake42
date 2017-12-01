@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Snake {
 
     private final int NUMBER_OF_STARTPIECES = 3; //How many parts has the snake at start
+    private final float DURATION_ONE_TICK = 0.5f;
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
@@ -24,7 +25,7 @@ public class Snake {
     }
 
     private void init(){
-        richtung = Richtung.RIGHT;
+        richtung = Richtung.DOWN;
         position = new ArrayList<Vector2>();
         color = Color.RED;
         for (int i = 0; i < NUMBER_OF_STARTPIECES; i++){
@@ -32,8 +33,27 @@ public class Snake {
         }
     }
 
+    float tick = 0;
     public void update(float delta){
+        if ((tick += delta) > DURATION_ONE_TICK){
+            //---MOVE------
+            Vector2 temp = new Vector2(position.get(position.size()-1));
+            position.remove(0);
 
+            switch(richtung){
+                case RIGHT: temp.x +=1;
+                    break;
+                case LEFT: temp.x -=1;
+                    break;
+                case UP: temp.y -=1;
+                    break;
+                case DOWN: temp.y +=1;
+            }
+            position.add(temp);
+            tick = 0;
+            //-------------
+        }
+        System.out.println(tick);
     }
 
     public void render(ShapeRenderer shapeRenderer){

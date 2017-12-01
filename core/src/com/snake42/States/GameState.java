@@ -38,7 +38,8 @@ public class GameState extends State{
         shapeRenderer.rect(Assets.AMT_OF_TILES_X-1,0,1,1);
         shapeRenderer.rect(0,Assets.AMT_OF_TILES_Y-1,1,1);
 
-        //snake.render(shapeRenderer);
+        snake.render(shapeRenderer);
+        snake.update(Gdx.graphics.getDeltaTime());
         shapeRenderer.end();
     }
 
