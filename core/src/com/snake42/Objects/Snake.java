@@ -36,7 +36,7 @@ public class Snake {
     float tick = 0;
     public void update(float delta){
         if ((tick += delta) > DURATION_ONE_TICK){
-            //---MOVE------
+            //---MOVE-------
             Vector2 temp = new Vector2(position.get(position.size()-1));
             position.remove(0);
 
