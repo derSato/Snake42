@@ -15,8 +15,7 @@ import java.util.ArrayList;
 
 public class Snake {
 
-    private final int NUMBER_OF_STARTPIECES = 30; //How many parts has the snake at start
-    private final float DURATION_ONE_TICK = 0.1f;
+    private final int NUMBER_OF_STARTPIECES = 10; //How many parts has the snake at start
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
@@ -42,9 +41,9 @@ public class Snake {
         }
     }
 
-    float tick = 0;
+
     public void update(float delta){
-        if ((tick += delta) > DURATION_ONE_TICK){
+
             //---MOVE-------
             Vector2 temp = new Vector2(position.get(position.size()-1));
             position.remove(0);
@@ -68,9 +67,8 @@ public class Snake {
             if (temp.y < 0)
                 temp.y = Assets.AMT_OF_TILES_Y-1;
             position.add(temp);
-            tick = 0;
             //-------------
-        }
+
     }
 
     public void input(){
@@ -103,6 +101,10 @@ public class Snake {
                 }
             }
         }
+    }
+
+    public ArrayList<Vector2> getPosition() {
+        return position;
     }
 
     public enum Richtung {RIGHT,LEFT,UP,DOWN};
