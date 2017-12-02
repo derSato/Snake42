@@ -1,7 +1,6 @@
 package com.snake42.Objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -15,10 +14,11 @@ import java.util.ArrayList;
 
 public class Snake {
 
-    private final int NUMBER_OF_STARTPIECES = 30; //How many parts has the snake at start
+    private final int NUMBER_OF_STARTPIECES = 20; //How many parts has the snake at start
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
+    private Richtung lastMoveDirection; //to prevent movement into your own snake
     private Color color;
     private boolean alive; //Turns false, if snake crashes
 
@@ -33,6 +33,7 @@ public class Snake {
     private void init(int[] keyes, int xStart, int yStart, Richtung richtungStart, Color color){
         this.keyes = keyes;                //Keyes that controll the movement of the snake
         richtung = richtungStart;           //the snake starts to move at this direction
+        lastMoveDirection = richtungStart;
         position = new ArrayList<Vector2>();   //the positions of the bodyparts are stored here
         this.color = color;                 //Color of the snake
         for (int i = 0; i < NUMBER_OF_STARTPIECES; i++){   //positions are initilized
@@ -59,12 +60,16 @@ public class Snake {
 
         switch(richtung){
             case RIGHT: temp.x +=1;
+                lastMoveDirection = Richtung.RIGHT;
                 break;
             case LEFT: temp.x -=1;
+                lastMoveDirection = Richtung.LEFT;
                 break;
             case UP: temp.y -=1;
+                lastMoveDirection = Richtung.UP;
                 break;
             case DOWN: temp.y +=1;
+                lastMoveDirection = Richtung.DOWN;
         }
         //check if snake is out of boundaries
         if (temp.x > Assets.AMT_OF_TILES_X-1)
@@ -81,16 +86,16 @@ public class Snake {
     }
 
     public void input(){
-        if (Gdx.input.isKeyJustPressed(keyes[0])){
+        if (Gdx.input.isKeyJustPressed(keyes[0]) && lastMoveDirection != Richtung.LEFT){
             richtung = Richtung.RIGHT;
         }
-        if (Gdx.input.isKeyJustPressed(keyes[1])){
+        if (Gdx.input.isKeyJustPressed(keyes[1]) && lastMoveDirection != Richtung.RIGHT){
             richtung = Richtung.LEFT;
         }
-        if (Gdx.input.isKeyJustPressed(keyes[2])){
+        if (Gdx.input.isKeyJustPressed(keyes[2]) && lastMoveDirection != Richtung.DOWN){
             richtung = Richtung.UP;
         }
-        if (Gdx.input.isKeyJustPressed(keyes[3])){
+        if (Gdx.input.isKeyJustPressed(keyes[3]) && lastMoveDirection != Richtung.UP){
             richtung = Richtung.DOWN;
         }
     }
@@ -112,7 +117,7 @@ public class Snake {
         }
     }
     public void increaseSize(){
-        addBodyParts+=3;
+        addBodyParts+=10;
     }
 
     public ArrayList<Vector2> getPosition() {
