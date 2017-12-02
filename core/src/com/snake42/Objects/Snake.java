@@ -15,11 +15,14 @@ import java.util.ArrayList;
 
 public class Snake {
 
-    private final int NUMBER_OF_STARTPIECES = 10; //How many parts has the snake at start
+    private final int NUMBER_OF_STARTPIECES = 30; //How many parts has the snake at start
 
     private ArrayList<Vector2> position;
     private Richtung richtung;
     private Color color;
+    private boolean alive; //Turns false, if snake crashes
+
+    private int addBodyParts;
 
     private int[] keyes; //RIGHT LEFT UP DOWN
 
@@ -39,35 +42,41 @@ public class Snake {
                 position.add(new Vector2(xStart+i,yStart));
             }
         }
+        alive = true;
+        addBodyParts = 0;
     }
 
 
-    public void update(float delta){
-
-            //---MOVE-------
-            Vector2 temp = new Vector2(position.get(position.size()-1));
+    public void update(){
+        //---MOVE-------
+        Vector2 temp = new Vector2(position.get(position.size()-1));
+        if(addBodyParts <= 0){
             position.remove(0);
+        }else{
+        //dont remove the last bodypart to increase the size
+            addBodyParts--;
+        }
 
-            switch(richtung){
-                case RIGHT: temp.x +=1;
-                    break;
-                case LEFT: temp.x -=1;
-                    break;
-                case UP: temp.y -=1;
-                    break;
-                case DOWN: temp.y +=1;
-            }
-            //check if snake is out of boundaries
-            if (temp.x > Assets.AMT_OF_TILES_X-1)
-                temp.x = 0;
-            if (temp.x < 0)
-                temp.x = Assets.AMT_OF_TILES_X-1;
-            if (temp.y > Assets.AMT_OF_TILES_Y-1)
-                temp.y = 0;
-            if (temp.y < 0)
-                temp.y = Assets.AMT_OF_TILES_Y-1;
-            position.add(temp);
-            //-------------
+        switch(richtung){
+            case RIGHT: temp.x +=1;
+                break;
+            case LEFT: temp.x -=1;
+                break;
+            case UP: temp.y -=1;
+                break;
+            case DOWN: temp.y +=1;
+        }
+        //check if snake is out of boundaries
+        if (temp.x > Assets.AMT_OF_TILES_X-1)
+            temp.x = 0;
+        if (temp.x < 0)
+            temp.x = Assets.AMT_OF_TILES_X-1;
+        if (temp.y > Assets.AMT_OF_TILES_Y-1)
+            temp.y = 0;
+        if (temp.y < 0)
+            temp.y = Assets.AMT_OF_TILES_Y-1;
+        position.add(temp);
+        //-------------
 
     }
 
@@ -102,9 +111,20 @@ public class Snake {
             }
         }
     }
+    public void increaseSize(){
+        addBodyParts+=3;
+    }
 
     public ArrayList<Vector2> getPosition() {
         return position;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public enum Richtung {RIGHT,LEFT,UP,DOWN};

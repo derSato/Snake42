@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.snake42.Essentials.Assets;
 import com.snake42.Essentials.GameStateManager;
 import com.snake42.Essentials.State;
+import com.snake42.Objects.Apple;
 import com.snake42.Objects.Snake;
 
 import java.util.ArrayList;
@@ -21,8 +22,11 @@ public class GameState extends State{
 
     private final float DURATION_ONE_TICK = 0.1f;
 
-
+    //Objects
     ArrayList<Snake> snakes = new ArrayList<Snake>();
+    Apple apple;
+
+
     ShapeRenderer shapeRenderer;
 
 
@@ -38,6 +42,8 @@ public class GameState extends State{
                 15,
                 Snake.Richtung.LEFT,
                 Color.GREEN));
+        apple = new Apple();
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(Assets.camera.combined);
@@ -53,9 +59,9 @@ public class GameState extends State{
         if ((tick += dt) > DURATION_ONE_TICK){ //Only every tick
 
             //update all GameOBJECTS
-            for (Snake s :
-                    snakes) {
-                s.update(dt);
+            for (Snake s : snakes) {
+                if(s.isAlive())
+                    s.update();
             }
 
             //Collision - detection
@@ -69,44 +75,50 @@ public class GameState extends State{
     public void render() {
         //draw the Objects on the screen
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(0,0,1,1);
-        shapeRenderer.rect(Assets.AMT_OF_TILES_X-1,0,1,1);
-        shapeRenderer.rect(0,Assets.AMT_OF_TILES_Y-1,1,1);
-        for (Snake s :
-                snakes) {
-            s.render(shapeRenderer);
+        for (Snake s : snakes) {
+            if(s.isAlive())
+                s.render(shapeRenderer);
         }
+        apple.render(shapeRenderer);
         shapeRenderer.end();
 
 
     }
     public void checkForCollision(){
-        //To prevent error, we save the snakes that collide in this tick in a List
-        ArrayList<Integer> temp = new ArrayList<Integer>();
 
         for (int i = 0; i < snakes.size(); i++) {
-            //To check if one Player lost, we check only the head of his snake if it collides with any other snakePart
-            Vector2 head = snakes.get(i).getPosition().get(snakes.get(i).getPosition().size()-1);
-            for (Snake p : snakes) {
-                for(Vector2 snakePart : p.getPosition()){
-                    if(snakePart != head){
-                        if (head.x == snakePart.x && head.y == snakePart.y){
-                            //gsm.set(new MenuState(gsm));
-                            temp.add(i);
+            if(snakes.get(i).isAlive()){
+                Vector2 head = snakes.get(i).getPosition().get(snakes.get(i).getPosition().size()-1);
+                //COLLISION HEAD APPLE
+                if(head.x == apple.getPosition().x && head.y == apple.getPosition().y){
+                    apple.newApple();
+                    snakes.get(i).increaseSize();
+                }
+
+                //COLLISION HEAD - BODYPART
+                //To check if one Player lost, we check only the head of his snake if it collides with any other snakePart
+                for (Snake p : snakes) {
+                    if (p.isAlive()){
+                        for(Vector2 snakePart : p.getPosition()){
+                            if(snakePart != head){
+                                if (head.x == snakePart.x && head.y == snakePart.y){
+                                    //gsm.set(new MenuState(gsm));
+                                    snakes.get(i).setAlive(false);
+                                }
+                            }
                         }
                     }
                 }
             }
         }
-        for (int delete: temp) {
-            snakes.remove(delete);
-        }
+
     }
 
     public void checkForInput(){ //All Input that happens in GameState is registered here
 
         for (Snake s : snakes) {
-            s.input();
+            if(s.isAlive())
+                s.input();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){ //Normally key get checked here
