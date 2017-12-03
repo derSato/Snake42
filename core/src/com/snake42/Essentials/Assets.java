@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
 
-    public static final int AMT_OF_TILES_X = 40;
+    public static int AMT_OF_TILES_X = 40;
     public static int AMT_OF_TILES_Y;
     public static OrthographicCamera camera;
 
@@ -29,6 +29,10 @@ public class Assets {
     public static void dispose() {
         bold.dispose();
         tight.dispose();
+    }
+    public static void updateGameSize(int plusSize) {
+        AMT_OF_TILES_X += plusSize;
+        AMT_OF_TILES_Y = Gdx.graphics.getHeight()/ (Gdx.graphics.getWidth()/ AMT_OF_TILES_X);
     }
 
 }

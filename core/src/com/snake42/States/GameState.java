@@ -19,8 +19,10 @@ import java.util.ArrayList;
 
 public class GameState extends State{
 
-
-    private final float DURATION_ONE_TICK = 0.1f;
+    private boolean doZoom;
+    private float DURATION_ONE_TICK = 0.06f;
+    private final float ZOOMSPEED = 0.1f;
+    float OLDSIZEX,OLDSIZEY;
 
     //Objects
     ArrayList<Snake> snakes = new ArrayList<Snake>();
@@ -32,6 +34,7 @@ public class GameState extends State{
 
     public GameState(GameStateManager gsm) {
         super(gsm);
+        doZoom = false;
         snakes.add(new Snake(new int[]{Input.Keys.RIGHT, Input.Keys.LEFT, Input.Keys.UP, Input.Keys.DOWN}, //Player 1
                 2,
                 2,
@@ -69,6 +72,18 @@ public class GameState extends State{
 
             tick = 0;
         }
+        if(doZoom){
+            OLDSIZEX+=ZOOMSPEED;
+            OLDSIZEY+=ZOOMSPEED;
+            if(OLDSIZEX>=Assets.AMT_OF_TILES_X){
+                OLDSIZEX = Assets.AMT_OF_TILES_X;
+                OLDSIZEY = Assets.AMT_OF_TILES_Y;
+                doZoom = false;
+            }
+            Assets.camera.setToOrtho(true,OLDSIZEX,OLDSIZEY);
+            Assets.camera.update();
+            shapeRenderer.setProjectionMatrix(Assets.camera.combined);
+        }
     }
 
     @Override
@@ -93,6 +108,11 @@ public class GameState extends State{
                 if(head.x == apple.getPosition().x && head.y == apple.getPosition().y){
                     apple.newApple();
                     snakes.get(i).increaseSize();
+                    doZoom = true;
+                    OLDSIZEX = Assets.AMT_OF_TILES_X;
+                    OLDSIZEY = Assets.AMT_OF_TILES_Y;
+                    Assets.updateGameSize(5);
+                    DURATION_ONE_TICK-=0.005f;
                 }
 
                 //COLLISION HEAD - BODYPART
