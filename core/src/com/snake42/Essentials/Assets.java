@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
 
-    public static int AMT_OF_TILES_X = 40;
+    public static int AMT_OF_TILES_X;
     public static int AMT_OF_TILES_Y;
     public static OrthographicCamera camera;
 
@@ -20,7 +20,8 @@ public class Assets {
         bold = new BitmapFont(Gdx.files.internal("Bold.fnt"));
         tight = new BitmapFont(Gdx.files.internal("Short.fnt"));
     }
-    public static void init() {
+    public static void initBeforeGame() {
+        AMT_OF_TILES_X = 40;
         AMT_OF_TILES_Y = Gdx.graphics.getHeight()/ (Gdx.graphics.getWidth()/ AMT_OF_TILES_X);
         camera = new OrthographicCamera();
         camera.setToOrtho(true,AMT_OF_TILES_X,AMT_OF_TILES_Y);

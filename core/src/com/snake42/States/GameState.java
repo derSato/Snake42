@@ -20,9 +20,10 @@ import java.util.ArrayList;
 public class GameState extends State{
 
     private boolean doZoom;
-    private float DURATION_ONE_TICK = 0.06f;
+    private float DURATION_ONE_TICK = 0.08f;
     private final float ZOOMSPEED = 0.1f;
     float OLDSIZEX,OLDSIZEY;
+    boolean gameOver;
 
     //Objects
     ArrayList<Snake> snakes = new ArrayList<Snake>();
@@ -35,16 +36,23 @@ public class GameState extends State{
     public GameState(GameStateManager gsm) {
         super(gsm);
         doZoom = false;
+        gameOver = false;
         snakes.add(new Snake(new int[]{Input.Keys.RIGHT, Input.Keys.LEFT, Input.Keys.UP, Input.Keys.DOWN}, //Player 1
-                2,
+                -5,
                 2,
                 Snake.Richtung.RIGHT,
                 Color.BLUE));
         snakes.add(new Snake(new int[]{Input.Keys.D, Input.Keys.A, Input.Keys.W, Input.Keys.S},             //Player 2
-                2,
-                15,
-                Snake.Richtung.LEFT,
+                -5,
+                10,
+                Snake.Richtung.RIGHT,
                 Color.GREEN));
+        snakes.add(new Snake(new int[]{Input.Keys.L, Input.Keys.J, Input.Keys.I, Input.Keys.K},             //Player 2
+                -5,
+                15,
+                Snake.Richtung.RIGHT,
+                Color.YELLOW));
+
         apple = new Apple();
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -84,6 +92,8 @@ public class GameState extends State{
             Assets.camera.update();
             shapeRenderer.setProjectionMatrix(Assets.camera.combined);
         }
+        if(Gdx.input.justTouched()&&gameOver)
+            gsm.set(new MenuState(gsm));
     }
 
     @Override
@@ -112,7 +122,7 @@ public class GameState extends State{
                     OLDSIZEX = Assets.AMT_OF_TILES_X;
                     OLDSIZEY = Assets.AMT_OF_TILES_Y;
                     Assets.updateGameSize(5);
-                    DURATION_ONE_TICK-=0.005f;
+                    DURATION_ONE_TICK-=0.002f;
                 }
 
                 //COLLISION HEAD - BODYPART
@@ -122,8 +132,8 @@ public class GameState extends State{
                         for(Vector2 snakePart : p.getPosition()){
                             if(snakePart != head){
                                 if (head.x == snakePart.x && head.y == snakePart.y){
-                                    //gsm.set(new MenuState(gsm));
                                     snakes.get(i).setAlive(false);
+                                    gameOver = true;
                                 }
                             }
                         }

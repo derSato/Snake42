@@ -33,7 +33,7 @@ public class IntroState extends State {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Assets.init();
+                //Assets.initBeforeGame();
                 hasLoaded = true;
             }
         }).run();

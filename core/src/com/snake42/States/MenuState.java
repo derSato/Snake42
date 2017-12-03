@@ -2,6 +2,7 @@ package com.snake42.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.snake42.Essentials.Assets;
 import com.snake42.Essentials.GameStateManager;
 import com.snake42.Essentials.State;
 
@@ -16,6 +17,7 @@ public class MenuState extends State{
         super(gsm);
         spriteBatch = new SpriteBatch();
         Gdx.gl.glClearColor(0, 0, 1, 1);
+        Assets.initBeforeGame();
     }
 
     @Override
